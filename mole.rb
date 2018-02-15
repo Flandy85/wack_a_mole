@@ -1,12 +1,12 @@
 require 'gosu'
 
-# Class WackaMole
+# Class WackaMole fetching Gosu library
 class WhackaMole < Gosu::Window
 	def initialize
 		super(800,600) # Size of game window
 		self.caption = "Whack a Mole" # Game title on game window
 
-		# Instance variable that creates an instance of image
+		# Instance variable that creates an instance of mole image
 		@image = Gosu::Image.new('images/mole.png')
 
 		# x and y instance variables that decides where mole image will appear in game window
@@ -23,6 +23,9 @@ class WhackaMole < Gosu::Window
 
 		# Instance variable for making mole blink
 		@visible = 0
+
+		# Instance variable that creates instance of hammer image
+		@hammer = Gosu::Image.new('images/hammer.png')
 	end
 
 	# Draws the mole image in gamewindow
@@ -31,6 +34,8 @@ class WhackaMole < Gosu::Window
 		if @visible > 0
 			@image.draw(@x - @width / 2, @y - @height / 2, 1) # image coords and if there are more images than 1, the number 1 decides position in gamewindow
 		end
+		# Draw hammer and be visible all the time and its movement coords based on mouse movement
+		@hammer.draw(mouse_x - 25, mouse_y - 39, 1)
 	end
 
 	# Updates all animation and movements in the game
