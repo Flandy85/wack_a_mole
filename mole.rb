@@ -20,11 +20,17 @@ class WhackaMole < Gosu::Window
 		# Instance variabels for movements of mole
 		@velocity_x = 5 # speed 5
 		@velocity_y = 5
+
+		# Instance variable for making mole blink
+		@visible = 0
 	end
 
 	# Draws the mole image in gamewindow
 	def draw
-		@image.draw(@x - @width / 2, @y - @height / 2, 1) # image coords and if there are more images than 1, the number 1 decides position in gamewindow
+		# Only show mole if @visibile is greater than 0
+		if @visible > 0
+			@image.draw(@x - @width / 2, @y - @height / 2, 1) # image coords and if there are more images than 1, the number 1 decides position in gamewindow
+		end
 	end
 
 	# Updates all animation and movements in the game
@@ -35,6 +41,11 @@ class WhackaMole < Gosu::Window
 		# If mole hits game wall change direction instead of passing throu
 		@velocity_x *= -1 if @x + @width / 2 > 800 || @x - @width / 2 < 0 
 		@velocity_y *= -1 if @y + @height / 2 > 600 || @y - @height / 2 < 1 
+
+		# Making mole invisible for 10 frames
+		@visible -= 1
+		# Making mole visible for 50 frames
+		@visible = 30 if @visible < -10 && rand < 0.01
 	end
 end
 
