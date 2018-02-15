@@ -18,8 +18,8 @@ class WhackaMole < Gosu::Window
 		@height = 75
 
 		# Instance variabels for movements of mole
-		@velocity_x = 5 # speed 5
-		@velocity_y = 5
+		@velocity_x = 4 # speed 4
+		@velocity_y = 4
 
 		# Instance variable for making mole blink
 		@visible = 0
@@ -49,7 +49,10 @@ class WhackaMole < Gosu::Window
 		elsif @hit == -1
 			c = Gosu::Color::RED
 		end
-			
+
+		# Make background color square shaped to fit gamewindow
+		draw_quad(0, 0, c, 800, 0, c, 800, 600, c, 0, 600, c)
+		@hit = 0	
 			
 	end
 
@@ -65,7 +68,7 @@ class WhackaMole < Gosu::Window
 		# Making mole invisible for 10 frames
 		@visible -= 1
 		# Making mole visible for 50 frames
-		@visible = 30 if @visible < -10 && rand < 0.01
+		@visible = 50 if @visible < -10 && rand < 0.01
 	end
 
 	# Method for handling mouse click, button_down is a gosu method that handles whatever
@@ -75,7 +78,7 @@ class WhackaMole < Gosu::Window
 		if(id == Gosu::MsLeft)
 			# Check if left mouse button was clicked with hammer distance 60 frames from mole image and if 
 			# mole image was visible
-			if Gosu.distance(mouse_x, mouse_y, @x, @y) < 60 && @visible >= 60
+			if Gosu.distance(mouse_x, mouse_y, @x, @y) < 60 && @visible >= 0
 				@hit = 1
 			else
 				@hit = -1
