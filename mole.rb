@@ -16,11 +16,23 @@ class WhackaMole < Gosu::Window
 		# @width and @height instance variables is for finding the center of the mole image
 		@width = 100
 		@height = 75
+
+		# Instance variabels for movements of mole
+		@velocity_x = 5 # speed 5
+		@velocity_y = 5
 	end
 
 	# Draws the mole image in gamewindow
 	def draw
 		@image.draw(@x - @width / 2, @y - @height / 2, 1) # image coords and if there are more images than 1, the number 1 decides position in gamewindow
+	end
+
+	# Updates all animation and movements in the game
+	def update
+		@x += @velocity_x
+		@y += @velocity_y
+		# If mole hits game wall change direction instead of passing throu
+		@velocity_x * -1 if @x + @width / 2 > 800 || @y - width / 2 < 0
 	end
 end
 
