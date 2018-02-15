@@ -31,8 +31,10 @@ class WhackaMole < Gosu::Window
 	def update
 		@x += @velocity_x
 		@y += @velocity_y
+
 		# If mole hits game wall change direction instead of passing throu
-		@velocity_x * -1 if @x + @width / 2 > 800 || @y - width / 2 < 0
+		@velocity_x *= -1 if @x + @width / 2 > 800 || @x - @width / 2 < 0 
+		@velocity_y *= -1 if @y + @height / 2 > 600 || @y - @height / 2 < 1 
 	end
 end
 
