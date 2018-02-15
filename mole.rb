@@ -29,6 +29,10 @@ class WhackaMole < Gosu::Window
 
 		#Instance variable for handling mouse click for hammer
 		@hit = 0
+
+		# Instance variable for keeping score and showing on screen
+		@font = Gosu::Font.new(30)
+		@score = 0
 	end
 
 	# Draws the mole image in gamewindow
@@ -52,7 +56,10 @@ class WhackaMole < Gosu::Window
 
 		# Make background color square shaped to fit gamewindow
 		draw_quad(0, 0, c, 800, 0, c, 800, 600, c, 0, 600, c)
-		@hit = 0	
+		@hit = 0
+
+		# Show score on gamewindow
+		@font.draw(@score.to_s, 650, 50, 2)	
 			
 	end
 
@@ -80,8 +87,10 @@ class WhackaMole < Gosu::Window
 			# mole image was visible
 			if Gosu.distance(mouse_x, mouse_y, @x, @y) < 60 && @visible >= 0
 				@hit = 1
+				@score += 10
 			else
 				@hit = -1
+				@score -= 3
 			end
 		end
 	end
