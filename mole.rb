@@ -26,6 +26,9 @@ class WhackaMole < Gosu::Window
 
 		# Instance variable that creates instance of hammer image
 		@hammer = Gosu::Image.new('images/hammer.png')
+
+		#Instance variable for handling mouse click for hammer
+		@hit = 0
 	end
 
 	# Draws the mole image in gamewindow
@@ -51,6 +54,12 @@ class WhackaMole < Gosu::Window
 		@visible -= 1
 		# Making mole visible for 50 frames
 		@visible = 30 if @visible < -10 && rand < 0.01
+	end
+
+	# Method for handling mouse click, button_down is a gosu method that handles whatever
+	# if its a mouse, gamepad or mousepad
+	def button_down(id)
+		
 	end
 end
 
