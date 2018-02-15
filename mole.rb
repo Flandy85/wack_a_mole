@@ -59,7 +59,7 @@ class WhackaMole < Gosu::Window
 		@hit = 0
 
 		# Show score on gamewindow
-		@font.draw(@score.to_s, 650, 50, 2)	
+		@font.draw("Your Score: #{ @score.to_s }", 500, 50, 2)	
 			
 	end
 
@@ -76,6 +76,9 @@ class WhackaMole < Gosu::Window
 		@visible -= 1
 		# Making mole visible for 50 frames
 		@visible = 50 if @visible < -10 && rand < 0.01
+
+		# Time limit for game session, 1 minute
+		@time_left = (60 - (Gosu.milliseconds / 1000))
 	end
 
 	# Method for handling mouse click, button_down is a gosu method that handles whatever
