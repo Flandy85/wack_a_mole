@@ -39,6 +39,18 @@ class WhackaMole < Gosu::Window
 		end
 		# Draw hammer and be visible all the time and its movement coords based on mouse movement
 		@hammer.draw(mouse_x - 25, mouse_y - 39, 1)
+
+		# Check if mole was hit or missed with button click
+		# and change background color based on hit or miss
+		if @hit == 0
+			c = Gosu::Color::NONE
+		elsif @hit == 1
+			c = Gosu::Color::GREEN
+		elsif @hit == -1
+			c = Gosu::Color::RED
+		end
+			
+			
 	end
 
 	# Updates all animation and movements in the game
@@ -57,9 +69,18 @@ class WhackaMole < Gosu::Window
 	end
 
 	# Method for handling mouse click, button_down is a gosu method that handles whatever
-	# if its a mouse, gamepad or mousepad
+	# if its a mouse, gamepad, keyboard or mousepad
 	def button_down(id)
-		
+		# Using left mouse button, check if left mouse button was pressed
+		if(id == Gosu::MsLeft)
+			# Check if left mouse button was clicked with hammer distance 60 frames from mole image and if 
+			# mole image was visible
+			if Gosu.distance(mouse_x, mouse_y, @x, @y) < 60 && @visible >= 60
+				@hit = 1
+			else
+				@hit = -1
+			end
+		end
 	end
 end
 
