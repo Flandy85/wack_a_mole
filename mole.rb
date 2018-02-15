@@ -1,5 +1,8 @@
 require 'gosu'
 
+# module ZOrder
+# 	BACKGROUND, UI = *0..3
+# end
 # Class WackaMole fetching Gosu library
 class WhackaMole < Gosu::Window
 	def initialize
@@ -8,6 +11,7 @@ class WhackaMole < Gosu::Window
 
 		# Instance variable that creates an instance of mole image
 		@image = Gosu::Image.new('images/mole.png')
+		@soil = Gosu::Image.new('images/soil-background.jpg', :tileable => true)
 
 		# x and y instance variables that decides where mole image will appear in game window
 		@x = 200 # Distance from the left side of gamewindow (200px)
@@ -41,6 +45,7 @@ class WhackaMole < Gosu::Window
 
 	# Draws the mole image in gamewindow
 	def draw
+		@soil.draw(0, 0, 0)
 		# Only show mole if @visibile is greater than 0
 		if @visible > 0
 			@image.draw(@x - @width / 2, @y - @height / 2, 1) # image coords and if there are more images than 1, the number 1 decides position in gamewindow
@@ -107,7 +112,7 @@ class WhackaMole < Gosu::Window
 			@visible = 50 if @visible < -10 && rand < 0.01
 
 			# Time limit for game session, 1 minute
-			@time_left = (60 - (Gosu.milliseconds / 1000))
+			@time_left = (30 - (Gosu.milliseconds / 1000))
 
 			# If timelimit has reached 0
 			@playing = false if @time_left < 0
