@@ -41,6 +41,8 @@ class WhackaMole < Gosu::Window
 
 		# When time limit hits 0
 		@playing = true
+
+		@start_time = 0
 	end
 
 	# Draws the mole image in gamewindow
@@ -74,7 +76,7 @@ class WhackaMole < Gosu::Window
 		# Unless loop, activates when timelimit has reached zero.
 		unless @playing
 			if @score <= 0
-				@font.draw("Game over!! Your score: #{ @score }! Are you serious!?", 300, 300, 3)
+				@font.draw("Game over!! Your score: #{ @score }! Are you serious!?", 200, 300, 3)
 			end
 			if @score > 0 && @score <= 30
 				@font.draw("Game over!! Your score: #{ @score }!", 300, 300, 3)
@@ -82,15 +84,17 @@ class WhackaMole < Gosu::Window
 			if @score >= 31 && @score <= 60
 				@font.draw("Game over!! Your score: #{ @score }! Well done!", 250, 300, 3)
 			end
-			if @score >= 61 && @score < 90
+			if @score >= 61 && @score < 89
 				@font.draw("Game over!! Your score: #{ @score }! SUPERPLAYER!", 250, 300, 3)
 			end
-			if @score > 90
+			if @score >= 90
 				@font.draw("Game over!! Your score: #{ @score }! GODLIKE!", 250, 300, 3)
 			end
 
 			@visible = 20
 			@time_left = 0
+			@font.draw("Press Spacebar to play again!", 300, 350, 3)
+			@font.draw("Press ESCAPE to quit!", 300, 370, 3)
 		end	
 			
 	end
@@ -112,7 +116,7 @@ class WhackaMole < Gosu::Window
 			@visible = 50 if @visible < -10 && rand < 0.01
 
 			# Time limit for game session, 1 minute
-			@time_left = (30 - (Gosu.milliseconds / 1000))
+			@time_left = (30 - ((Gosu.milliseconds - @start_time) / 1000))
 
 			# If timelimit has reached 0
 			@playing = false if @time_left < 0
@@ -135,6 +139,17 @@ class WhackaMole < Gosu::Window
 					@score -= 3
 				end
 			end
+		elsif
+			if(id == Gosu::KbSpace)
+				@playing = true
+				@visible = -10
+				@start_time = Gosu.milliseconds
+				@score = 0
+			end
+		else
+			if (id == Gosu::KB_ESCAPE)
+	      		close
+	    	end
 		end
 	end
 end
