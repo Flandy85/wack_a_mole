@@ -115,7 +115,7 @@ class WhackaMole < Gosu::Window
 			# Making mole visible for 50 frames
 			@visible = 50 if @visible < -10 && rand < 0.01
 
-			# Time limit for game session, 1 minute
+			# Time limit for game session, 30 sec
 			@time_left = (30 - ((Gosu.milliseconds - @start_time) / 1000))
 
 			# If timelimit has reached 0
@@ -140,6 +140,7 @@ class WhackaMole < Gosu::Window
 				end
 			end
 		elsif
+			# Press spacebar to restart
 			if(id == Gosu::KbSpace)
 				@playing = true
 				@visible = -10
@@ -147,6 +148,7 @@ class WhackaMole < Gosu::Window
 				@score = 0
 			end
 		else
+			# Press escape to quit
 			if (id == Gosu::KB_ESCAPE)
 	      		close
 	    	end
